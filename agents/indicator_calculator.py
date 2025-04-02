@@ -61,7 +61,33 @@ def calculate_technical_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 # --- Test Block for running this script directly ---
 # This imports and runs Agent 1 first, then passes the result to Agent 2's function
+# --- Simple Test Block (For testing only this file's function) ---
 if __name__ == '__main__':
+    print("Running basic standalone test for indicator calculator...")
+    # Create dummy data sufficient for calculations (needs enough rows for longest period, e.g., 20 for SMA_20)
+    data = {
+        'Close': [100, 101, 102, 101, 103, 105, 106, 104, 105, 107,
+                  108, 109, 110, 108, 107, 109, 111, 110, 112, 113,
+                  115, 114, 116] # Added more data points
+    }
+    # Create index if needed (optional for this test)
+    # index = pd.to_datetime(['2025-03-01', '2025-03-02', ...]) # Create corresponding dates if needed
+    test_df = pd.DataFrame(data) # Add index=index here if created
+
+    # Add High/Low if needed by indicators being tested (using Close as approx)
+    if 'High' not in test_df.columns: test_df['High'] = test_df['Close']
+    if 'Low' not in test_df.columns: test_df['Low'] = test_df['Close']
+
+    # Call the function defined in *this* file
+    df_with_indicators = calculate_technical_indicators(test_df.copy())
+
+    if df_with_indicators is not None:
+        print("\n--- Test DataFrame with Indicators (Tail): ---")
+        print(df_with_indicators.tail())
+        print("\n--- Columns Added: ---")
+        print(df_with_indicators.columns.tolist()) # Use tolist() for cleaner print
+    else:
+        print("\nIndicator calculation failed during standalone test.")
     print("Running integrated test for Agent 1 -> Agent 2...")
 
     # --- Step 1: Import and run Agent 1's function ---
@@ -88,7 +114,17 @@ if __name__ == '__main__':
         # Pass the loaded DataFrame (using .copy() is good practice to avoid modifying original)
         # to this script's calculate_technical_indicators function
         df_with_indicators = calculate_technical_indicators(loaded_df.copy())
+print("\nInvoking Agent 2: Indicator Calculator...")
+        df_with_indicators = calculate_technical_indicators(data_df.copy()) # Existing line
+        # ---> ADD THIS LINE BELOW <---
+        if df_with_indicators is not None:
+            print("Columns in main.py *after* Agent 2 call:", df_with_indicators.columns.tolist())
+        else:
+            print("Agent 2 returned None (failed).")
+        # ---> END ADDED CODE <---
 
+        # Now the original check happens:
+        if df_with_indicators is not None: # Original check starts here...
         print("\n--- DataFrame with Indicators (Last 5 rows): ---")
         print(df_with_indicators.tail())
         print("\n--- Columns: ---")
