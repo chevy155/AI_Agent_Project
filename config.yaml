@@ -1,0 +1,56 @@
+# Configuration for finance_agents Project
+
+# --- Data Paths ---
+data:
+  # Path to the raw input CSV file
+  raw_data_path: "data/raw/nvda_data.csv"
+  # Path to store processed data (if Agent 1 saves output)
+  processed_data_path: "data/processed/"
+
+# --- LLM Configuration ---
+llm:
+  # Model identifier for local Ollama execution
+  local_model: "llama3.1:8b"
+  # Example placeholders for cloud models/keys (we'll use python-dotenv for actual keys)
+  # cloud_api_key_env_var: "CLAUDE_API_KEY"
+  # cloud_model: "claude-3-opus-20240229"
+
+# --- Agent Specific Settings ---
+agents:
+  # Default resource limits (can be overridden per agent)
+  defaults:
+    timeout_seconds: 30       # From your safety requirements
+    memory_limit_mb: 512      # From your safety requirements
+
+  # Settings specific to Agent 1: Data Loader & Preparer
+  data_loader:
+    validate_dates: True      # Example setting for data validation
+    # Add other specific settings if needed
+
+  # Settings specific to Agent 2: Indicator Calculator
+  indicator_calculator:
+    sma_periods: [5, 20]     # As mentioned in your brainstorm
+    rsi_period: 14           # Standard RSI period
+    # Add other indicator settings if needed
+
+  # Settings specific to Agent 3: Pattern Identifier (LLM-Powered)
+  pattern_identifier:
+    llm_max_tokens: 2048      # From your safety requirements
+    llm_cooldown_seconds: 1   # From your safety requirements
+    lookback_days: 30         # From your agent requirements
+
+  # Settings specific to Agent 4: Report Synthesizer (if we stick to 4, or merged Agent 3)
+  report_synthesizer:
+    llm_max_tokens: 4096      # From your safety requirements (adjust if merged)
+
+# --- System Settings ---
+system:
+  # Logging level for application logs (e.g., DEBUG, INFO, WARNING, ERROR)
+  logging_level: "INFO"
+
+# --- Network Safety (Placeholders based on your safety requirements) ---
+# network:
+#   max_bandwidth_mbps: 10
+#   max_concurrent_connections: 5
+#   retry_attempts: 3
+#   backoff_factor: 2
