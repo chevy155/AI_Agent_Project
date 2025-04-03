@@ -8,7 +8,7 @@ import os
 # LangChain components to interact with the LLM
 # Ensure necessary langchain packages are installed (they should be from previous steps)
 try:
-    from langchain_community.chat_models import ChatOllama
+    from langchain_ollama import ChatOllama
     from langchain_core.prompts import PromptTemplate
     from langchain_core.output_parsers import StrOutputParser
 except ImportError:
