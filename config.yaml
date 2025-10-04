@@ -1,4 +1,4 @@
-# Configuration for finance_agents Project
+# Configuration for AI Agent Project
 
 # --- Data Paths ---
 data:
@@ -6,6 +6,15 @@ data:
   raw_data_path: "data/raw/nvda_data.csv"
   # Path to store processed data (if Agent 1 saves output)
   processed_data_path: "data/processed/"
+
+# --- Weather Agent Configuration ---
+weather:
+  # Location for weather queries
+  location: "Del Mar, California"
+  # API endpoint (using free wttr.in service)
+  api_endpoint: "https://wttr.in"
+  # Request timeout in seconds
+  timeout: 10
 
 # --- LLM Configuration ---
 llm:
@@ -21,6 +30,11 @@ agents:
   defaults:
     timeout_seconds: 30       # From your safety requirements
     memory_limit_mb: 512      # From your safety requirements
+
+  # Settings specific to Weather Agent
+  weather_agent:
+    location: "Del Mar, California"
+    update_interval_minutes: 30
 
   # Settings specific to Agent 1: Data Loader & Preparer
   data_loader:
