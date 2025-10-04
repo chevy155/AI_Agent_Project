@@ -43,6 +43,13 @@ agents:
   report_synthesizer:
     llm_max_tokens: 4096      # From your safety requirements (adjust if merged)
 
+  # Settings for Morning Notification Agent
+  morning_notification:
+    llm_model_id: "llama3.1:8b"
+    llm_max_tokens: 512
+    enable_email: True
+    enable_sms: True
+
 # --- System Settings ---
 system:
   # Logging level for application logs (e.g., DEBUG, INFO, WARNING, ERROR)
